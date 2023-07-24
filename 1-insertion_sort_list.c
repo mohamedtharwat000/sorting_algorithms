@@ -1,6 +1,6 @@
 #include "sort.h"
 
-void insertion_sort_list_swap(listint_t *current, listint_t *next);
+void insertion_sort_list_swap(listint_t **first, listint_t **second);
 
 /**
  * insertion_sort_list - function that sorts a doubly linked list
@@ -12,8 +12,7 @@ void insertion_sort_list_swap(listint_t *current, listint_t *next);
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *current = NULL, *next = NULL, *current_prev = NULL;
-	int sorted = 0;
+	listint_t *current = NULL, *next = NULL, *next_sort = NULL;
 
 	if (!list || !(*list) || !(*list)->next)
 		return;
@@ -23,25 +22,18 @@ void insertion_sort_list(listint_t **list)
 
 	while (next)
 	{
-		sorted = 1;
 		if (current->n > next->n)
 		{
-			sorted = 0;
-			insertion_sort_list_swap(current, next);
-			current_prev = current;
-			while (current_prev->prev)
+			next_sort = next;
+			while (next_sort->prev && next_sort->prev->n > next_sort->n)
 			{
-				if (current_prev->n < current_prev->prev->n)
-				{
-					insertion_sort_list_swap(current, next);
-				}
-				current_prev = current_prev->prev;
+				insertion_sort_list_swap(&(next_sort->prev), &next_sort);
+				print_list(*list);
+				next_sort = next_sort->prev;
 			}
 		}
-		if (sorted == 1)
-			return;
 		current = next;
-		next = next->next;
+		next = current->next;
 	}
 }
 
@@ -49,23 +41,18 @@ void insertion_sort_list(listint_t **list)
  * insertion_sort_list_swap - function that swaps two nodes
  * in a doubly linked list
  *
- * @current: first node to swap.
- * @next: second node to swap.
+ * @first: first node to swap.
+ * @second: second node to swap.
  *
  * Return: void
  */
-void insertion_sort_list_swap(listint_t *current, listint_t *next)
+void insertion_sort_list_swap(listint_t **first, listint_t **second)
 {
-	if (!current || !next)
-		return;
+	int *first_node = (int *)&((*first)->n);
+	int *second_node = (int *)&((*second)->n);
 
-	if (next->next)
-		next->next->prev = current;
-	next->prev = current->prev;
-	current->prev = next;
-
-	if (current->prev)
-		current->prev->next = next;
-	current->next = next->next;
-	next->next = current;
+	int tmp = *first_node;
+	*first_node = *second_node;
+	*second_node = tmp;
 }
+
