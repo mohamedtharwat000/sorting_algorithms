@@ -1,7 +1,6 @@
 #include "sort.h"
 
-int partition(int *array, int low, int high);
-void quickSort(int *to_print, size_t size, int *array, int low, int high);
+void quickSort(int *array, int low, int high, size_t size);
 
 /**
  * quick_sort - Sorts an array of integers in ascending order
@@ -14,59 +13,53 @@ void quickSort(int *to_print, size_t size, int *array, int low, int high);
  */
 void quick_sort(int *array, size_t size)
 {
-	quickSort(array, size, array, 0, size - 1);
-}
-
-
-/**
- * partition - Partitions an array using the last element as pivot.
- *
- * @array: Array to be partitioned.
- * @low: Index of the first element of the array.
- * @high: Index of the last element of the array.
- *
- * Return: Index of the pivot element after partition.
- */
-int partition(int *array, int low, int high)
-{
-	int pivot = array[high], i = low, j = low, t = 0;
-
-	for (i = low; i < high; i++)
+	if (!array || size < 2)
 	{
-		if (array[i] < pivot)
-		{
-			t = array[i];
-			array[i] = array[j];
-			array[j] = t;
-			j++;
-		}
+		return;
 	}
-	array[high] = array[j];
-	array[j] = pivot;
-	return (j);
+	quickSort(array, 0, size - 1, size);
 }
-
 
 /**
  * quickSort - Sorts an array using the Quick sort algorithm.
  *
- * @to_print: Array to print.
- * @size: size of array to print it.
  * @array: Array to be sorted.
  * @low: Index of the first element of the array.
  * @high: Index of the last element of the array.
+ * @size: size of array to print it.
  *
  * Return: void
  */
-void quickSort(int *to_print, size_t size, int *array, int low, int high)
+void quickSort(int *array, int low, int high, size_t size)
 {
 	if (low < high)
 	{
-		int pi = partition(array, low, high);
+		int pivot = array[high], pivot_index = low, i, t;
 
-		print_array(to_print, size);
+		for (i = low; i < high; i++)
+		{
+			if (array[i] < pivot)
+			{
+				if (i != pivot_index)
+				{
+					t = array[i];
+					array[i] = array[pivot_index];
+					array[pivot_index] = t;
+					print_array(array, size);
+				}
+				pivot_index++;
+			}
+		}
 
-		quickSort(to_print, size, array, low, pi - 1);
-		quickSort(to_print, size, array, pi + 1, high);
+		if (array[pivot_index] != array[high])
+		{
+			t = array[high];
+			array[high] = array[pivot_index];
+			array[pivot_index] = t;
+			print_array(array, size);
+		}
+
+		quickSort(array, low, pivot_index - 1, size);
+		quickSort(array, pivot_index + 1, high, size);
 	}
 }
