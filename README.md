@@ -28,7 +28,7 @@ This repository implements common sorting algorithms in C language, demonstratin
 
 ## Usage
 
-1. Compile the files: `gcc *.c -o sort`
+1. Compile the files: `gcc [function name].c -o sort`
 2. Run the executable: `./sort`
 
 This executes the `main()` function in `main.c`, sorting an array using one of the algorithms. The printing functions visualize array changes at each pass.
