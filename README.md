@@ -2,14 +2,6 @@
 
 This is a C project that includes various sorting algorithms implemented in different files. Each file focuses on a specific sorting algorithm and provides functions to sort arrays using that algorithm.
 
-## Table of Contents
-
-- [Description](#description)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Algorithms](#algorithms)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Description
 
@@ -34,32 +26,25 @@ To compile and run the project, follow these steps:
 
 2. Change to the project directory:
 
-   ````shell
+   ```shell
    cd my-project
    ```
 
-   ````
-
 3. Compile the source files:
 
-   ````shell
+   ```shell
    gcc -Wall -Werror -Wextra -pedantic *.c -o my-project
    ```
 
-   ````
-
 4. Run the executable:
 
-   ````shell
+   ```shell
    ./my-project
    ```
-   ````
-
+   
 ## Usage
 
 The project provides a main file (`main.c`) that demonstrates the usage of each sorting algorithm. It creates an array of integers, sorts the array using one of the implemented algorithms, and prints the sorted array.
-
-To use a specific sorting algorithm, modify the `main.c` file and uncomment the corresponding function call for the desired sorting algorithm.
 
 ## Algorithms
 
